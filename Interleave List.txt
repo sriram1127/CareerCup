@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class MyClass {
+    public static void main(String args[]) {
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        List<Integer> list1 = new ArrayList<Integer>();
+        list1.add(1);
+        list1.add(2);
+        list1.add(3);
+        List<Integer> list2 = new ArrayList<Integer>();
+        list2.add(9);
+        list2.add(0);
+        List<Integer> list3 = new ArrayList<Integer>();
+        list3.add(5);
+        List<Integer> list4 = new ArrayList<Integer>();
+        list4.add(-4);
+        list4.add(-5);
+        list4.add(-2);
+        list4.add(-3);
+        list4.add(-1);
+        list.add(list1);
+        list.add(list2);
+        list.add(list3);
+        list.add(list4);
+        System.out.println(Arrays.toString(interleaveLists(list)));
+    }
+    
+    private static int[] interleaveLists(List<List<Integer>> ll){
+    	if(ll == null)
+    			return null;
+    	int listLength = 0;
+    	int total = 0;
+    	for(List<Integer> list : ll){
+    		if(list == null)
+    			continue;
+    		listLength = Math.max(list.size(), listLength);
+    		total += list.size();
+    	}
+    	int[] result = new int[total];
+    	int index = 0;
+    	for(int i = 0; i < listLength; ++i){
+    		for(List<Integer> list : ll){
+    			if(list == null)
+    				continue;
+    				if(i < list.size()){
+    					result[index++] = list.get(i);
+    				}
+    		}
+    	}
+    	return result;
+    }
+}
