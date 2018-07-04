@@ -1,0 +1,42 @@
+// careful for the last character or end of the string [ i different in that case]
+
+public class MyClass {
+    public static void main(String args[]) {
+        int x=10;
+        int y=25;
+        int z=x+y;
+
+        System.out.println(longestSubStringWithKUniqueCharacters("abcbbbbcccbdddadacb", 4));
+    }
+    public static String longestSubStringWithKUniqueCharacters(String str, int k){
+    	if(str == null || str.length() == 0)
+    		return "";
+    	int[] chars = new int[26];
+    	int count = 0;
+    	int start = 0;
+    	int end = 0;
+    	int len = 0;
+    	int i =0, j =0;
+    	for(; i<str.length(); ++i){
+    		char temp = str.charAt(i);
+    		++chars[temp - 'a'];
+    		if(chars[temp - 'a'] == 1){
+    			++count;
+    		}
+    		if(count == k + 1 || (i == str.length()-1 && count == k)){
+    			if(i - j > len){
+    				start = j;
+    				end = i == str.length()-1 ? i + 1: i;
+    				len = end - start;
+    			}
+    			while(count != k){
+    				temp = str.charAt(j++);
+    				if(--chars[temp - 'a'] == 0){
+    					--count;
+    				}
+    			}
+    		}
+    	}
+    	return str.substring(start, end);
+    }
+}
