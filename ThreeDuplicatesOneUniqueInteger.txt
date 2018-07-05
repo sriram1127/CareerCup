@@ -1,0 +1,27 @@
+//Given an array of integers where every integer occurs three times except for one integer, which only occurs once, find and return the non-duplicated integer.
+
+public class MyClass {
+    public static void main(String args[]) {
+       // int arr[] = {12, 1, 12, 3, 12, 1, 1, 2, 3, 2, 2, 3, 7};
+        int arr[] = {12, 7, 7, 7, 12, 12, 4};
+        System.out.println(new MyClass().findDuplicate(arr));
+    }
+    
+    private int findDuplicate(int[] m){
+    	int n = m.length;
+    	final int INT_MAX = 32;
+    	int sum = 0;
+    	int result =0;
+    	for(int i=0; i < INT_MAX; ++i){
+    		int temp = 1 << i;
+    		sum = 0;
+    		for(int number : m){
+    			if((number & temp) != 0)  // this --> if(number & temp != 0) will not work, put clsoing braces
+    				++sum;
+    		}
+    		if(sum % 3 == 1)
+    			result = result | temp;
+    	}
+    	return result;
+    }
+}
