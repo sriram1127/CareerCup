@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class MyClass {
+    public static void main(String args[]) {
+        int[] a = {0, 2, 1, 0, 1, 2, 0, 1, 1};
+        if(a == null || a.length == 0)
+            return;
+        new MyClass().move(a);
+        System.out.print(Arrays.toString(a));
+    }
+    
+    private void move(int[] arr){
+    	int low = 0;
+    	int mid = 0;
+    	int high = arr.length -1;
+    	while(mid <= high){
+    		if(arr[mid] == 0){
+    			int temp = arr[mid];
+    			arr[mid++] = arr[low];
+    			arr[low++] = temp;
+    		} else if(arr[mid] == 1){
+    			mid++;
+    		} else if(arr[mid] == 2){
+    			int temp = arr[mid];
+    			arr[mid] = arr[high];
+    			arr[high--] = temp;
+    		}
+    	}
+    }
+}
