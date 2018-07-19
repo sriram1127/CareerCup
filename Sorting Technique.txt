@@ -3,3 +3,5 @@
 3) Quick sort: If the data is almost unsorted and is small to fit into memory and extra space is not allowed, this is the way to go ! 
 4) Counting sort: If additional O(n) space is allowed, data is almost unsorted and small enough to fit into memory and most importantly, the difference between numbers is much lesser than the number of different numbers, this is the way to go ! 
 5) Bubble sort: if the data is small enough to fit in memory, almost sorted in ascending order, this can be used. But I will still incline to use insertion sort.
+
+https://www.quora.com/Which-algorithm-is-best-for-which-case-bubble-sort-insertion-sort-or-quick-sort

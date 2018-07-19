@@ -1,0 +1,57 @@
+import java.util.*;
+
+public class Plot{
+	int maxarea = 0;
+	int top =0;
+	int bottom =0;
+	int left =0;
+	int right =0;
+	public static void main(String[] args){
+		int[][] plotCost = {{4, 6, 7},{3, 5, 2},{2, 4, 5}};
+		int k =16;
+		new Plot().findMaxArea(plotCost, k);
+	
+	}
+	
+	private void findMaxArea(int[][] m, int k){
+		if(m == null || m.length == 0)
+			return;
+		int r = m.length;
+		int c = m[0].length;
+		int[] sum = new int[r];
+		for(int col=0; col<c; ++col){
+			Arrays.fill(sum, 0);
+			for(int i=col; i<c; ++i){
+				for(int j=0; j <r; ++j){
+					sum[j] += m[j][i];
+				}
+				findSubArrayMax(sum, k, col, i);
+			}
+		}
+		System.out.println(maxarea + " " + top + " " + bottom + " " + left + " " + right);
+	}
+	
+	private void findSubArrayMax(int[] sum, int k, int left, int right){
+		int start =0;
+		int end =0;
+		int cur = sum[0];
+		while(start< sum.length && end < sum.length){
+			while(cur > k && start < sum.length){
+				cur -= sum[start++];
+			}
+			while(cur <= k ){
+			    if(maxarea < (end - start + 1) * (right - left +1)){
+			        maxarea = (end - start + 1) * (right - left +1);
+			        top = start;
+			        bottom = end;
+			        this.left = left; 
+			        this.right = right;
+			    }
+				if(++end < sum.length)
+					cur += sum[end];
+				else
+					return;
+			}
+		}
+	}
+}
