@@ -1,0 +1,20 @@
+class GfG{
+    public int leftLeafSum(Node root)
+    {
+      if(root == null)
+        return 0;
+        return leftSum(root, false);
+    }
+    
+    private int leftSum(Node node, boolean isLeft){
+        if(isLeft && node.left == null && node.right == null)
+            return node.data;
+        int sum = 0;
+        if(node.right != null)
+            sum += leftSum(node.right, false); 
+        if(node.left != null)
+            sum += leftSum(node.left, true);
+        return sum;
+            
+    } 
+}
