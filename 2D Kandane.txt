@@ -1,0 +1,77 @@
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+public class GFG {
+	int left =0;
+	int right=0;
+	int top =0;
+	int bottom =0;
+	int max =0;
+
+    public static void main(String args[]) {
+        Scanner scanner = new Scanner(System.in);
+		int t = scanner.nextInt();
+		int[][] matrix = null;
+		GFG obj = new GFG();
+		for(int tc =0; tc < t; ++tc){
+		    obj.initialize();
+			int r = scanner.nextInt();
+			int c = scanner.nextInt();
+			matrix = new int[r][c];
+			for(int i=0; i<r; ++i){
+				for(int j=0; j<c; ++j){
+					matrix[i][j] = scanner.nextInt();
+				}
+			}
+			obj.findMaxSum(matrix);
+		}
+    }
+    private void initialize(){
+        left =0;
+	    right=0;
+	    top =0;
+	    bottom =0;
+	    max =0;
+    }
+	private void findMaxSum(int[][] matrix){
+		int r = matrix.length;
+		int c = matrix[0].length;
+		int[] sum = new int[r];
+		for(int col =0; col <c; ++col){
+			Arrays.fill(sum, 0);
+			for(int i=col; i<c; ++i){
+				for(int j=0; j<r; ++j){
+					sum[j] += matrix[j][i];
+				}
+				kandaneAlgo(sum, col, i);
+			}
+		}
+		System.out.println(max);
+	}
+	private void kandaneAlgo(int[] sum, int l, int r){
+		int start =0;
+		int end =0;
+		int curr = sum[0];
+		int currmax =sum[0];
+		for(int i=1; i<sum.length; ++i){
+			if(curr + sum[i] > sum[i]){
+				curr += sum[i];
+			} else{
+				curr = sum[i];
+				start = i;
+			}
+			if(currmax < curr){
+				currmax = curr;
+				end = i;
+			}
+		}
+		if(max < currmax){
+			top = start;
+			bottom = end;
+			left = l;
+			right = r;
+			max = currmax;
+		}
+	}
+}
