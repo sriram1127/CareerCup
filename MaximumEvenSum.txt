@@ -1,0 +1,71 @@
+public class MyClass {
+    static int max = Integer.MIN_VALUE;
+    
+    public static void main(String args[]) {
+        TreeNode root = new TreeNode(11);
+        TreeNode l = new TreeNode(1);
+        TreeNode r = new TreeNode(6);
+        TreeNode rr = new TreeNode(13);
+        TreeNode rl = new TreeNode(10);
+        TreeNode ll = new TreeNode(1);
+        TreeNode lr = new TreeNode(101);
+        root.left = l;
+        root.right =r;
+        l.left =ll;
+        l.right = lr;
+        r.right = rr;
+        r.left = rl;*/
+        maximumEvenSum(root);
+        System.out.print(max);
+    }
+    
+
+
+    private static int[] maximumEvenSum(TreeNode node){
+    	if(node == null)
+    		return new int[]{0, 0};
+    	if(node.left == null && node.right == null){
+    	    if(node.val % 2 == 0){
+    	        max = Math.max(max, node.val);
+    	        return new int[]{0, node.val};
+    	    } else{
+    	        return new int[]{node.val, 0};
+    	    }
+    	}
+    	int[] left = maximumEvenSum(node.left);
+    	int[] right = maximumEvenSum(node.right);
+    	int even = 0;
+    	int odd = 0;
+    	if(node.val % 2 ==  0){
+    		even = Math.max(Math.max(left[1] + node.val, right[1] + node.val) , node.val);
+    		odd = Math.max(Math.max(left[0] + node.val, right[0] + node.val) , 0);
+    		if(even%2 == 0)
+    		    max = Math.max(even, max);
+    		if((left[0] + node.val + right[0]) % 2 == 0)
+    		    max = Math.max(left[0] + node.val + right[0], max);
+    		if((left[1] + node.val + right[1]) % 2 == 0)
+    		    max = Math.max(left[1] + node.val + right[1], max);
+    	} else{
+    		even = Math.max(Math.max(left[0] + node.val, right[0] + node.val), 0);
+    		odd = Math.max(Math.max(left[1] + node.val, right[1] + node.val) , node.val);
+    		if(even%2 == 0)
+    		    max = Math.max(even, max);
+    		if((left[0] + node.val + right[1]) % 2 == 0)
+    		    max = Math.max(left[0] + node.val + right[1], max);
+    		if((left[1] + node.val + right[0]) % 2 == 0)
+    		    max = Math.max(left[1] + node.val + right[0], max);
+    	}
+    	left[1] = even;
+    	left[0] = odd;
+    	return left;
+    }
+
+}
+class TreeNode{
+    TreeNode left;
+    TreeNode right;
+    int val;
+    public TreeNode(int v){
+        val = v;
+    }
+}
