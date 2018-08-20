@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class MyClass {
+    public static void main(String args[]) {
+        System.out.print(removeChar("CBAAAAAAAAB"));
+    }
+    private static String removeChar(String str) {
+        StringBuilder sb = new StringBuilder();
+        if(str == null || str.length() == 0)
+            sb.toString();
+        Stack<int[]> stack = new Stack<>();
+        stack.push(new int[] {str.charAt(0), 1});
+        for(int i=1; i<str.length(); ++i) {
+            if(stack.isEmpty()) {
+                stack.push(new int[]{str.charAt(i), 1});
+            } else if (stack.peek()[0] == str.charAt(i)) {
+                stack.peek()[1]++;
+            } else {
+                while(!stack.isEmpty() && stack.peek()[1] >= 3) {
+                    stack.pop();
+                }
+                if(!stack.isEmpty() && stack.peek()[0] == str.charAt(i))
+                    stack.peek()[1]++;
+                else
+                    stack.push(new int[]{str.charAt(i), 1});
+            }
+        }
+        while(!stack.isEmpty() && stack.peek()[1] >= 3) {
+                    stack.pop();
+        }
+        while(!stack.isEmpty()) {
+            int[] item = stack.pop();
+            //System.out.print(Arrays.toString(item));
+            while(item[1]-- > 0) {
+                sb.append((char) item[0]);
+            }
+        }
+        return sb.reverse().toString();
+    }
+}
