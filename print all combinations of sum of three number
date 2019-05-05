@@ -1,0 +1,22 @@
+https://www.careercup.com/question?id=5638939143045120
+
+
+import java.util.*;
+
+public class MyClass {
+    public static void main(String args[]) {
+        printNumbers(10, 15, 55, 1000);
+    }
+    
+    private static void printNumbers(int a, int b, int c, int limit) {
+        Set<Integer> set = new HashSet<>();
+        set.add(0);
+        for(int i=1; i<=limit; ++i) {
+            if(set.contains(i - a) || set.contains(i - b) || set.contains(i - c)) {
+                set.add(i);
+                System.out.println(i);
+            }
+        }
+        set.remove(0);
+    }
+}
