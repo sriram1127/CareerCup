@@ -1,0 +1,82 @@
+class GfG
+{
+    
+    private Node padZeros(Node node, int size) {
+        Node prev = node;
+        while(size-- > 0) {
+            Node n = new Node(0);
+            n.next = prev;
+            prev = n;
+        }
+        return prev;
+    }
+    /*You are required to complete this method*/
+    Node sublinkedList(Node l1, Node l2)
+    {
+        int s1 = getSize(l1);
+        int s2 = getSize(l2);
+        if(s1 != s2) {
+            if(s1 > s2) {
+              l2 = padZeros(l2, s1 - s2);
+               return substract(l1, l2);
+            } else {
+               l1 = padZeros(l1, s2 - s1); 
+               return substract(l2, l1);
+            } 
+        } else {
+            Node temp1 = l1;
+            Node temp2 = l2;
+            while(temp1 != null) {
+                if(temp1.data > temp2.data) {
+                    return substract(l1, l2);
+                } else if(temp2.data > temp1.data) {
+                    return substract(l2, l1);
+                } 
+                temp1 = temp1.next;
+                temp2 = temp2.next;
+            }
+            return new Node(0);
+        }
+    }
+    
+    private Node substract(Node n1, Node n2) {
+        Stack<Node> s1 = new Stack<>();
+        Stack<Node> s2 = new Stack<>();
+        while(n1 != null) {
+            s1.push(n1);
+            n1 = n1.next;
+            s2.push(n2);
+            n2 = n2.next;
+        }
+        Node prev = null;
+        while(!s1.isEmpty()) {
+            Node a = s1.pop();
+            Node b = s2.pop();
+           //System.out.println(a.data + " " + b.data);
+            if(a.data >= b.data) {
+                Node newNode = new Node(a.data-b.data);
+                newNode.next = prev;
+                prev = newNode;
+            } else {
+                Node newNode = new Node(a.data+10-b.data);
+                newNode.next = prev;
+                prev = newNode;
+                s2.peek().data += 1;
+            }
+            //System.out.println(a.data + " " + b.data + " " + prev.data);
+        }
+        //while(prev.data == 0) {
+        //    prev = prev.next;
+        //}
+        return prev; 
+    }
+    
+    private int getSize(Node node) {
+        int s = 0;
+        while(node != null) {
+            node = node.next;
+            ++s;
+        }
+        return s;
+    }
+}
