@@ -18,3 +18,6 @@ Given a set, return all subsets of the set in a set.
 Print all distinct permutations of a given string  
 
 https://leetcode.com/discuss/interview-question/354854/facebook-phone-screen-cut-wood
+
+Draw a circle, given a center and radius
+x = rcos(theta) + a, y = rsin(theta) +b where 0 <= theta < 360
